@@ -49,31 +49,33 @@ def send(receiver, v):
   client.send(msg)
 
 def set_bulb_noisy():
-  base = 0.2
-  factor = 0.1
+  base = 0.08
+  factor = 0.08
+  delay = 0.35
+  boost = 0.3
   v = base
   v += (random.random()*factor)
+  send(1,v)
+  v = base
+  v += (random.random()*factor)
+  time.sleep(0.01)
+  send(2,v)
+  v = base
+  v += (random.random()*factor)
+  time.sleep(0.01)
+  send(3,v)
   if random.random() > 0.99:
-    v += 0.5
+    v += boost
     send(1,v)
-    time.sleep(0.15)
+    time.sleep(delay)
     send(1,0)
     send(2,v)
-    time.sleep(0.15)
+    time.sleep(delay)
     send(2,0)
     send(3,v)
-    time.sleep(0.15)
+    time.sleep(delay)
     send(3,0)
-  else:
-    send(1,v)
-    v = base
-    v += (random.random()*factor)
-    time.sleep(0.01)
-    send(2,v)
-    v = base
-    v += (random.random()*factor)
-    time.sleep(0.01)
-    send(3,v)
+
 
 
 
@@ -104,9 +106,9 @@ if __name__ == "__main__":
 
   while True:
     set_bulb_noisy()
-    time.sleep(0.001)
-    #set_neon()
-    time.sleep(0.001)
+    time.sleep(0.01)
+    set_neon()
+    time.sleep(0.01)
 
     pass
 
