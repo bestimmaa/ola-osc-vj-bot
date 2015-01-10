@@ -51,8 +51,8 @@ def send(receiver, v):
 def set_bulb_noisy():
   base = 0.08
   factor = 0.08
-  delay = 0.35
-  boost = 0.3
+  delay = 0.15
+  boost = 0.2
   v = base
   v += (random.random()*factor)
   send(1,v)
@@ -64,7 +64,8 @@ def set_bulb_noisy():
   v += (random.random()*factor)
   time.sleep(0.01)
   send(3,v)
-  if random.random() > 0.99:
+  if random.random() > 0.995:
+    delay += random.random()*0.65
     v += boost
     send(1,v)
     time.sleep(delay)
@@ -75,6 +76,18 @@ def set_bulb_noisy():
     send(3,v)
     time.sleep(delay)
     send(3,0)
+  v = base
+  v += (random.random()*factor) 
+  if random.random() > 0.999:
+    v += boost
+    send(1,v)
+    send(2,v)
+    send(3,v)
+    time.sleep(delay)
+
+
+
+
 
 
 
@@ -84,7 +97,7 @@ def set_neon():
   msg = osc_message_builder.OscMessageBuilder(address = "/dmx/universe/5000/4")
   v = 0
   flash = False
-  if random.random() > 0.99:
+  if random.random() > 0.991:
     flash = True
     v+=0.8
   msg.add_arg(v)
@@ -106,9 +119,9 @@ if __name__ == "__main__":
 
   while True:
     set_bulb_noisy()
-    time.sleep(0.01)
+    time.sleep(0.05)
     set_neon()
-    time.sleep(0.01)
+    time.sleep(0.05)
 
     pass
 
